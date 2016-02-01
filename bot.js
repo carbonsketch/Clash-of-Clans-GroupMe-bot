@@ -8,19 +8,15 @@ function respond() {
       botRegex = /^\/cool guy/;
       botCC = /^\/cc/;
       setcc = /^\/setcc/;
-     
+     var cc = setcc
        
-var newfuckingvar = setcc;
+var newfuckingvar = cc;
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
     this.res.end();
   }
-  else if(request.text && setcc.test(request.text)) {
-this.res.writeHead(200);
-return newfuckingvar;
-this.res.end();
-}
+  
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
 postMessage(newfuckingvar);
