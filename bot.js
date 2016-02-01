@@ -7,14 +7,17 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/cool guy/;
       botCC = /^\/cc/;
-  if(request.text && botRegex.test(request.text)) {
+      setcc = /^\/setcc/;
+       
+ var newfuckingvar = setcc.slice(7, 0)
+ if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
     this.res.end();
   }
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
-postMessage("clashcaller");
+postMessage(newfuckingvar);
 this.res.end();
 }
   else {
