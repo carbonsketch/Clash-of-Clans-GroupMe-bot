@@ -8,9 +8,9 @@ function respond() {
       botRegex = /^\/cool guy/;
       botCC = /^\/cc/;
       setcc = /^\/setcc/;
-      var newfuckingvar = setcc.slice(7, 0);
+     
        
- 
+var newfuckingvar = request.text.split(setcc).slice(1); 
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
