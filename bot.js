@@ -10,7 +10,7 @@ function respond() {
       setcc = /^\/setcc/;
      
        
-var newfuckingvar = request.text.split(setcc).slice(1); 
+var newfuckingvar = setcc;
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
