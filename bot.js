@@ -12,7 +12,7 @@ function respond() {
        
 function settingcc() {
     var clashc = setcc.text;
-    return clashc
+    return clashc.text
 }
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
