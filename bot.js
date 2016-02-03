@@ -16,6 +16,7 @@ function settingcc() {
 }
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
+    settingcc();
     postMessage(cool());
     this.res.end();
   }
