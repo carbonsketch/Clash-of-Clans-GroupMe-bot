@@ -24,7 +24,7 @@ this.res.end();
 }
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
-postMessage(newfuckingvar);
+postMessage(cc);
 this.res.end();
 }
   else {
