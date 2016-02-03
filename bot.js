@@ -10,7 +10,7 @@ function respond() {
       setcc = /^\/setcc/;
      var cc = setcc
        
-var newfuckingvar = "";
+newfuckingvar = "";
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
@@ -24,7 +24,7 @@ this.res.end();
 }
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
-postMessage(cc);
+postMessage(newfuckingvar);
 this.res.end();
 }
   else {
