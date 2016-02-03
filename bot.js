@@ -27,7 +27,7 @@ this.res.end();
 }
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
-postMessage(clashc);
+postMessage(settingcc);
 this.res.end();
 }
   else {
