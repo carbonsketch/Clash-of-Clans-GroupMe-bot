@@ -29,23 +29,23 @@ if(request.text && botRe.test(request.text)) {
     this.res.end();
   }
     else if(request.text && setcc.test(request.text)) {
-this.res.writeHead(200);
-postMessage("set");
-this.res.end();
+    this.res.writeHead(200);
+    postMessage("set");
+    this.res.end();
     }
  
-  else if(request.text && botCC.test(request.text)) {
-this.res.writeHead(200);
-postMessage(savecc);
-this.res.end();
+   else if(request.text && botCC.test(request.text)) {
+   this.res.writeHead(200);
+   postMessage(savecc);
+   this.res.end();
 }
-  else {
+   else {
     console.log("don't care");
     this.res.writeHead(200);
     this.res.end();
   }
 }
-}
+
 
 function postMessage(response) {
   var botResponse,options, body, botReq;
