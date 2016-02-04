@@ -23,7 +23,11 @@ this.res.writeHead(200);
 newfuckingvar = setcc;
 postMessage("set");
 this.res.end();
-
+    
+    else if(request.text && djkhaled.test(request.text)) {
+this.res.writeHead(200);
+postMessage(cool());
+this.res.end();
 }
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
