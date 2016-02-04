@@ -13,6 +13,8 @@ function respond() {
     
 var savecc;  
 var requesttext;
+var othertext;
+
 function pls() {
    requesttext = request.text;
    return requesttext;
