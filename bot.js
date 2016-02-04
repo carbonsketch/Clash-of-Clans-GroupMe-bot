@@ -16,6 +16,10 @@ function pls() {
    requesttext = request.text;
    return requesttext;
 }
+function save() {
+   return savecc.split(1);
+}
+
 
 
 if(pls.length > 6) {
@@ -35,7 +39,7 @@ if(request.text && botRe.test(request.text)) {
  
    else if(request.text && botCC.test(request.text)) {
    this.res.writeHead(200);
-   postMessage(savecc);
+   postMessage(save);
    this.res.end();
 }
    else {
