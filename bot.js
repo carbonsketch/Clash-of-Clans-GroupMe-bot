@@ -10,12 +10,11 @@ function respond() {
       setcc = /^\/setcc/;
 
     
-       
+var savecc;  
 function pls() {
   var requesttext;
-  var savecc;
-request.text = requesttext;
-return requesttext;
+  request.text = requesttext;
+  return requesttext;
 }
 
 
