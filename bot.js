@@ -8,7 +8,8 @@ function respond() {
       botRe = /^\/cool/;
       botCC = /^\/cc/;
       setcc = /^\/setcc/;
-
+      botSave = /^\/save/;
+      botPrint = /^\/print/;
     
 var savecc;  
 var requesttext;
@@ -42,6 +43,18 @@ if(request.text && botRe.test(request.text)) {
    postMessage(save);
    this.res.end();
 }
+   else if(request.text && botSave.test(request.text)) {
+       var sometext = request.text
+       mystr = "Test " + sometext;
+       this.res.writeHead(200);
+       postMessage("Text saved.");
+       this.res.end();
+   }
+   else if(request.text && botPrint.test(request.text)) {
+       this.res.writeHead(200);
+       postMessage(sometext);
+       this.res.end();
+   }
    else {
     console.log("don't care");
     this.res.writeHead(200);
