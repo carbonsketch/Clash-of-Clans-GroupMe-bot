@@ -12,8 +12,6 @@ function respond() {
     
        
 
-var clashc = request.text
-clashc.split(1);
 var requesttext;
 request.text = requesttext;
 var savecc
@@ -40,7 +38,7 @@ this.res.end();
  
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
-postMessage(clashc);
+postMessage(savecc);
 this.res.end();
 }
   else {
