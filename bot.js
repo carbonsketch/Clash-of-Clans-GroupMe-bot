@@ -45,14 +45,14 @@ if(request.text && botRe.test(request.text)) {
 }
    else if(request.text && botSave.test(request.text)) {
        var sometext = request.text
-       othertext = "Test " + sometext;
+       othertext = "Test " + sometext.text;
        this.res.writeHead(200);
        postMessage("Text saved.");
        this.res.end();
    }
    else if(request.text && botPrint.test(request.text)) {
        this.res.writeHead(200);
-       postMessage(othertext.text);
+       postMessage(sometext.text);
        this.res.end();
    }
    else {
@@ -62,9 +62,8 @@ if(request.text && botRe.test(request.text)) {
   }
 }
 
-
 function postMessage(response) {
-  var botResponse,options, body, botReq;
+  var botResponse, options, body, botReq;
 
   botResponse = response
 
@@ -101,6 +100,5 @@ function postMessage(response) {
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 
 exports.respond = respond;
