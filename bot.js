@@ -5,13 +5,27 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy/;
+      botRe = /^\/cool/;
       botCC = /^\/cc/;
       setcc = /^\/setcc/;
-      djkhaled = /^\/another one/;
+}
     
        
 
+var clashc = request.text
+clashc.split(1);
+var requesttext;
+request.text = requesttext;
+var savecc
+
+if(requesttext.length > 6) {
+  requesttext = savecc
+  }
+  
+if(request.text && botRe.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage(cool());
+    this.res.end();
 
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
@@ -20,15 +34,10 @@ function respond() {
   }
     else if(request.text && setcc.test(request.text)) {
 this.res.writeHead(200);
-newfuckingvar = setcc;
 postMessage("set");
 this.res.end();
     }
-  else if(request.text && djkhaled.test(request.text)) {
-  this.res.writeHead(200);
-  postMessage(cool());
-  this.res.end();
-}
+ 
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
 postMessage(clashc);
