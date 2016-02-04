@@ -45,14 +45,14 @@ if(request.text && botRe.test(request.text)) {
 }
    else if(request.text && botSave.test(request.text)) {
        var sometext = request.text
-       mystr = "Test " + sometext;
+       othertext = "Test " + sometext;
        this.res.writeHead(200);
        postMessage("Text saved.");
        this.res.end();
    }
    else if(request.text && botPrint.test(request.text)) {
        this.res.writeHead(200);
-       postMessage(sometext);
+       postMessage(othertext.text);
        this.res.end();
    }
    else {
