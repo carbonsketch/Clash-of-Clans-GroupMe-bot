@@ -11,7 +11,7 @@ function respond() {
       djkhaled = /^\/another one/;
     
        
-var clashc = request.text
+
 
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
