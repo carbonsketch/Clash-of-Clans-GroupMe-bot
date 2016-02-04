@@ -8,7 +8,7 @@ function respond() {
       botRe = /^\/cool/;
       botCC = /^\/cc/;
       setcc = /^\/setcc/;
-}
+
     
        
 
@@ -48,6 +48,7 @@ this.res.end();
     this.res.writeHead(200);
     this.res.end();
   }
+}
 }
 
 function postMessage(response) {
