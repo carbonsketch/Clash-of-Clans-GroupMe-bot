@@ -8,15 +8,13 @@ function respond() {
       botRegex = /^\/cool guy/;
       botCC = /^\/cc/;
       setcc = /^\/setcc/;
+      djkhaled = /^\/another one/;
     
        
-function settingcc() {
-    var clashc = request.text
-    return clashc.text
+var clashc = request.text
 }
  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    settingcc();
     postMessage(cool());
     this.res.end();
   }
@@ -25,10 +23,11 @@ this.res.writeHead(200);
 newfuckingvar = setcc;
 postMessage("set");
 this.res.end();
+
 }
   else if(request.text && botCC.test(request.text)) {
 this.res.writeHead(200);
-postMessage(settingcc);
+postMessage(clashc);
 this.res.end();
 }
   else {
