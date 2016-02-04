@@ -11,13 +11,16 @@ function respond() {
 
     
        
-
-var requesttext;
+function pls() {
+  var requesttext;
+  var savecc;
 request.text = requesttext;
-var savecc
+return requesttext;
+}
 
-if(requesttext.length > 6) {
-  requesttext = savecc
+
+if(pls.length > 6) {
+  requesttext = savecc;
   }
   
 if(request.text && botRe.test(request.text)) {
