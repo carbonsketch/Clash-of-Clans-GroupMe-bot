@@ -11,7 +11,7 @@ function respond() {
     
        
 function settingcc() {
-    var clashc = setcc.text;
+    var clashc = request.text
     return clashc.text
 }
  if(request.text && botRegex.test(request.text)) {
