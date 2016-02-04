@@ -11,10 +11,10 @@ function respond() {
 
     
 var savecc;  
+var requesttext;
 function pls() {
-  var requesttext;
-  request.text = requesttext;
-  return requesttext;
+   requesttext = request.text;
+   return requesttext;
 }
 
 
