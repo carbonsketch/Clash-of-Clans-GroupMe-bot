@@ -3,9 +3,9 @@ var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 
-// This module is used to perminantly store global variables.
+// This module is used to permanently store global variables.
 var stateModule = (function() {
-    var ccLink; // Private Varialbe for ClashCaller link
+    var ccLink; // Private Variable for ClashCaller link
     var wsLink; // Private Variable for WarSheet link
     
     var pub = {}; // public object - returned at end of module
@@ -14,12 +14,11 @@ var stateModule = (function() {
     pub.changeccLink = function(newstate) {
         ccLink = newstate;
     };
-
     // Changes the WarSheet link
     pub.changewsLink = function(newstate) {
         wsLink = newstate;
     };
-    
+
     // Returns ClashCaller link.
     pub.getccLink = function() {
         return ccLink;
@@ -29,12 +28,22 @@ var stateModule = (function() {
         return wsLink;
     }
 
-    return pub; // Expose the called variable
+    return pub; // Exposes the requested variable
 }());
+
+function checkccLink(linkText) {
+    substring = "//clashcaller.com/war";
+    if (linkText.indexOf(substring) > -1) {
+        stateModule.changeccLink(linkText);
+        return "ClashCaller Link Saved!";
+    } else {
+        return "Sorry, " + "\"" + linkText + "\"" + " is not a valid clashcaller link.";
+    }
+}
 
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
-    botCommands = /^\/commands/ // Prints a list of commands
+    botCommands = /^\/commands/; // Prints a list of commands
     botCool = /^\/cool/; // Prints a random face
     botSaveCC = /^\/setcc/i; // Saves a ClashCaller link
     botPrintCC = /^\/cc/; // Prints the ClashCaller link
@@ -44,19 +53,34 @@ function respond() {
 
     if (request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
-        postMessage("List of commands:" + "\n" + "/commands" + "\n" + "/setcc" + "\n" + "/cc" + "\n" + "/setws" + "\n" + "/ws" + "\n");
+        postMessage("List of commands: \n \
+                    /commands - Prints this list \n \
+                    /setcc - Sets the ClashCaller link \n \
+                    /cc - Prints the ClashCaller link \n \
+                    /setws - Sets the War Sheet \n \
+                    /ws - Prints the War Sheet \n \
+                    /cw - Prints the ClashCaller and War Sheet"
+                    );
         this.res.end();
     }
     if (request.text && botCool.test(request.text)) {
         this.res.writeHead(200);
         postMessage(cool());
         this.res.end();
+    // SaveCC check link test
+    } else if (request.text && botSaveCC.test(request.text)) {
+        var someText = request.text.slice(6);
+        this.res.writeHead(200);
+        postMessage(checkccLink(someText));
+        this.res.end();
+/*
     } else if (request.text && botSaveCC.test(request.text)) {
         var someText = request.text.slice(6);
         stateModule.changeccLink(someText);
         this.res.writeHead(200);
         postMessage("ClashCaller link saved!");
         this.res.end();
+*/
     } else if (request.text && botPrintCC.test(request.text)) {
         var theState = stateModule.getccLink();
         this.res.writeHead(200);
@@ -68,13 +92,11 @@ function respond() {
         this.res.writeHead(200);
         postMessage("War Sheet Saved!");
         this.res.end();
-/*
     } else if (request.text && botPrintWS.test(request.text)) {
         var theState = stateModule.getwsLink();
         this.res.writeHead(200);
         postMessage(theState);
         this.res.end();
-*/
     } else if (request.text && botPrintCW.test(request.text)) {
         var theState = stateModule.getccLink();
         var theState2 = stateModule.getwsLink();
