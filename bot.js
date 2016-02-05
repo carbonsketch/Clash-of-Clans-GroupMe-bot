@@ -69,7 +69,7 @@ function respond() {
         this.res.end();
     // SaveCC check link test
     } else if (request.text && botSaveCC.test(request.text)) {
-        var someText = request.text.slice(6);
+        var someText = request.text.slice(7);
         this.res.writeHead(200);
         postMessage(checkccLink(someText));
         this.res.end();
