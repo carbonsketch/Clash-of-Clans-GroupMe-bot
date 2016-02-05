@@ -3,61 +3,44 @@ var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 
-// This module stores the current ClashCaller link.
+// This module is used to perminantly store global variables.
 var stateModule = (function() {
-    var state; // Private Variable
-    var state2; // Private Variable 2
+    var ccLink; // Private Varialbe for ClashCaller link
+    var wsLink; // Private Variable for WarSheet link
     
     var pub = {}; // public object - returned at end of module
 
-    pub.changeState = function(newstate) {
-        state = newstate;
+    // Changes the ClashCaller link
+    pub.changeccLink = function(newstate) {
+        ccLink = newstate;
     };
 
-    pub.changeState2 = function(newstate) {
-        state2 = newstate;
+    // Changes the WarSheet link
+    pub.changewsLink = function(newstate) {
+        wsLink = newstate;
     };
     
     // Returns ClashCaller link.
-    pub.getState = function() {
-        return state;
+    pub.getccLink = function() {
+        return ccLink;
     }
     // Returns WarSheet link.
-    pub.getState2 = function() {
-        return state2;
+    pub.getwsLink = function() {
+        return wsLink;
     }
 
-    return pub; // expose externally
+    return pub; // Expose the called variable
 }());
 
-// stateModule.changeState("newstate"); - set state
-// var theState = stateModule.getState(); - get state
-/*
-var stateWS = (function() {
-    var state; // Private Variable
-
-    var pub = {}; // public object - returned at end of module
-
-    pub.changeState = function(newstate) {
-        state = newstate;
-    };
-
-    pub.getState = function() {
-        return state;
-    }
-
-    return pub; // expose externally
-}());
-*/
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
-        botCommands = /^\/commands/ // Prints a list of commands
+    botCommands = /^\/commands/ // Prints a list of commands
     botCool = /^\/cool/; // Prints a random face
     botSaveCC = /^\/setcc/i; // Saves a ClashCaller link
     botPrintCC = /^\/cc/; // Prints the ClashCaller link
     botSaveWS = /^\/setws/i; // Saves a War Sheet
     botPrintWS = /^\/ws/; // Prints the War Sheet
-
+    botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
 
     if (request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
@@ -70,25 +53,33 @@ function respond() {
         this.res.end();
     } else if (request.text && botSaveCC.test(request.text)) {
         var someText = request.text.slice(6);
-        stateModule.changeState(someText);
+        stateModule.changeccLink(someText);
         this.res.writeHead(200);
         postMessage("ClashCaller link saved!");
         this.res.end();
     } else if (request.text && botPrintCC.test(request.text)) {
-        var theState = stateModule.getState();
+        var theState = stateModule.getccLink();
         this.res.writeHead(200);
         postMessage(theState);
         this.res.end();
     } else if (request.text && botSaveWS.test(request.text)) {
         var someText = request.text.slice(6);
-        stateModule.changeState2(someText);
+        stateModule.changewsLink(someText);
         this.res.writeHead(200);
         postMessage("War Sheet Saved!");
         this.res.end();
+/*
     } else if (request.text && botPrintWS.test(request.text)) {
-        var theState = stateModule.getState2();
+        var theState = stateModule.getwsLink();
         this.res.writeHead(200);
         postMessage(theState);
+        this.res.end();
+*/
+    } else if (request.text && botPrintCW.test(request.text)) {
+        var theState = stateModule.getccLink();
+        var theState2 = stateModule.getwsLink();
+        this.res.writeHead(200);
+        postMessage(theState + "\n" + theState2);
         this.res.end();
     } else {
         console.log("don't care");
