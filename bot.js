@@ -150,7 +150,7 @@ function checkccLink(linkText) {
 
 // check if a link was set
 function checkUndefined(someText) {
-    if (someText == "undefined") {
+    if(typeof someText === 'undefined'){
         return "No link has been set!";
     } else {
         return someText;
