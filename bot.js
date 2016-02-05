@@ -31,16 +31,6 @@ var stateModule = (function() {
     return pub; // Exposes the requested variable
 }());
 
-function checkccLink(linkText) {
-    substring = "//clashcaller.com/war";
-    if (linkText.indexOf(substring) > -1) {
-        stateModule.changeccLink(linkText);
-        return "ClashCaller Link Saved!";
-    } else {
-        return "Sorry, " + "\"" + linkText + "\"" + " is not a valid clashcaller link.";
-    }
-}
-
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
     botCommands = /^\/commands/; // Prints a list of commands
@@ -51,6 +41,7 @@ function respond() {
     botPrintWS = /^\/ws/; // Prints the War Sheet
     botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
 
+//commands    
     if (request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
         postMessage("List of commands: \n \
@@ -59,44 +50,40 @@ function respond() {
                     /cc - Prints the ClashCaller link \n \
                     /setws - Sets the War Sheet \n \
                     /ws - Prints the War Sheet \n \
-                    /cw - Prints the ClashCaller and War Sheet"
-                    );
+                    /cw - Prints the ClashCaller and War Sheet");
         this.res.end();
     }
+// cool
     if (request.text && botCool.test(request.text)) {
         this.res.writeHead(200);
         postMessage(cool());
         this.res.end();
-    // SaveCC check link test
+// setcc
     } else if (request.text && botSaveCC.test(request.text)) {
         var someText = request.text.slice(7);
         this.res.writeHead(200);
         postMessage(checkccLink(someText));
         this.res.end();
-/*
-    } else if (request.text && botSaveCC.test(request.text)) {
-        var someText = request.text.slice(6);
-        stateModule.changeccLink(someText);
-        this.res.writeHead(200);
-        postMessage("ClashCaller link saved!");
-        this.res.end();
-*/
+// cc
     } else if (request.text && botPrintCC.test(request.text)) {
         var theState = stateModule.getccLink();
         this.res.writeHead(200);
-        postMessage(theState);
+        postMessage(checkUndefined(theState));
         this.res.end();
+// setws
     } else if (request.text && botSaveWS.test(request.text)) {
-        var someText = request.text.slice(6);
+        var someText = request.text.slice(7);
         stateModule.changewsLink(someText);
         this.res.writeHead(200);
         postMessage("War Sheet Saved!");
         this.res.end();
+// ws
     } else if (request.text && botPrintWS.test(request.text)) {
         var theState = stateModule.getwsLink();
         this.res.writeHead(200);
         postMessage(theState);
         this.res.end();
+// cw
     } else if (request.text && botPrintCW.test(request.text)) {
         var theState = stateModule.getccLink();
         var theState2 = stateModule.getwsLink();
@@ -148,6 +135,26 @@ function postMessage(response) {
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+// function to check if the ClashCaller is valid.
+function checkccLink(linkText) {
+    substring = "//clashcaller.com/war";
+    if (linkText.indexOf(substring) > -1) {
+        stateModule.changeccLink(linkText);
+        return "ClashCaller Link Saved!";
+    } else {
+        return "Sorry, " + "\"" + linkText + "\"" + " is not a valid clashcaller link.";
+    }
+}
+
+// check if a link was set
+function checkUndefined(someText) {
+    if (someText == "undefined") {
+        return "No link has been set!";
+    } else {
+        return someText;
+    }
 }
 
 exports.respond = respond;
