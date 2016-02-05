@@ -81,12 +81,12 @@ function respond() {
         this.res.end();
     } else if (request.text && botSaveWS.test(request.text)) {
         var someText = request.text.slice(6);
-        stateWS.changeState2(someText);
+        stateModule.changeState2(someText);
         this.res.writeHead(200);
         postMessage("War Sheet Saved!");
         this.res.end();
     } else if (request.text && botPrintWS.test(request.text)) {
-        var theState = stateWS.getState2();
+        var theState = stateModule.getState2();
         this.res.writeHead(200);
         postMessage(theState);
         this.res.end();
