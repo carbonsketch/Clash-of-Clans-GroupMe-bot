@@ -40,7 +40,7 @@ function respond() {
     botSaveWS = /^\/setws/i; // Saves a War Sheet
     botPrintWS = /^\/ws/; // Prints the War Sheet
     botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
-    botMention - /^\/mention/i; // responds with a message mentioning the user.
+    botMention = /^\/mention/i; // responds with a message mentioning the user.
 
 //commands
     if (request.text && botCommands.test(request.text)) {
@@ -90,12 +90,14 @@ function respond() {
         this.res.writeHead(200);
         postMessage("ClashCaller: " + checkUndefined(theState) + "\n" + "War Sheet: " + checkUndefined(theState2));
         this.res.end();
+
 // mention
     } else if (request.text && botMention.test(request.text)) {
         var someText = request.name;
         this.res.writeHead(200);
         postMessage(someText);
         this.res.end();
+
     } else {
         console.log("don't care");
         this.res.writeHead(200);
