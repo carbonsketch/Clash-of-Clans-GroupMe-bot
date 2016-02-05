@@ -81,14 +81,14 @@ function respond() {
     } else if (request.text && botPrintWS.test(request.text)) {
         var theState = stateModule.getwsLink();
         this.res.writeHead(200);
-        postMessage(theState);
+        postMessage(checkUndefined(theState));
         this.res.end();
 // cw
     } else if (request.text && botPrintCW.test(request.text)) {
         var theState = stateModule.getccLink();
         var theState2 = stateModule.getwsLink();
         this.res.writeHead(200);
-        postMessage(theState + "\n" + theState2);
+        postMessage("ClashCaller: " + checkUndefined(theState) + "\n" + "War Sheet: " + checkUndefined(theState2));
         this.res.end();
     } else {
         console.log("don't care");
