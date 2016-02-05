@@ -19,6 +19,22 @@ var stateModule = (function () {
 
         return pub; // expose externally
     }());
+    
+    var stateWS = (function () {
+        var state; // Private Variable
+
+        var pub = {};// public object - returned at end of module
+
+        pub.changeState = function (newstate) {
+            state = newstate;
+        };
+
+        pub.getState = function() {
+            return state;
+        }
+
+        return pub; // expose externally
+    }());
 
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
@@ -26,10 +42,13 @@ function respond() {
     botCool = /^\/cool/; // Prints a random face
     botSaveCC = /^\/setcc/i; // Saves a ClashCaller link
     botPrintCC = /^\/cc/; // Prints the ClashCaller link
+     botSaveWS = /^\/setws/i; // Saves a War Sheet
+    botPrintWS = /^\/ws/; // Prints the War Sheet
+    
 
     if(request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
-        postMessage("List of commands:"+"\n"+"/commands"+"\n"+"/setcc"+"\n"+"/cc");
+        postMessage("List of commands:"+"\n"+"/commands"+"\n"+"/setcc"+"\n"+"/cc"+"/setws"+"\n"+"/ws"+"\n");
         this.res.end();
     }
     if(request.text && botCool.test(request.text)) {
@@ -46,6 +65,19 @@ function respond() {
     }
     else if(request.text && botPrintCC.test(request.text)) {
         var theState = stateModule.getState();
+        this.res.writeHead(200);
+        postMessage(theState);
+        this.res.end();
+   }
+   else if(request.text && botSaveWS.test(request.text)) {
+        var someText = request.text.slice(6);
+        stateWS.changeState(someText);
+        this.res.writeHead(200);
+        postMessage("War Sheet Saved!");
+        this.res.end();
+    }
+    else if(request.text && botPrintWS.test(request.text)) {
+        var theState = stateWS.getState();
         this.res.writeHead(200);
         postMessage(theState);
         this.res.end();
