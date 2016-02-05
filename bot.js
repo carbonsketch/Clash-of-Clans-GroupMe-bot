@@ -48,7 +48,7 @@ function respond() {
 
     if(request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
-        postMessage("List of commands:"+"\n"+"/commands"+"\n"+"/setcc"+"\n"+"/cc"+"/setws"+"\n"+"/ws"+"\n");
+        postMessage("List of commands:"+"\n"+"/commands"+"\n"+"/setcc"+"\n"+"/cc"+"\n"+"/setws"+"\n"+"/ws"+"\n");
         this.res.end();
     }
     if(request.text && botCool.test(request.text)) {
