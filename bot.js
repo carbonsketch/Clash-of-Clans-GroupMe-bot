@@ -3,104 +3,98 @@ var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 
+// This module stores the current ClashCaller link.
+var stateModule = (function () {
+        var state; // Private Variable
+
+        var pub = {};// public object - returned at end of module
+
+        pub.changeState = function (newstate) {
+            state = newstate;
+        };
+
+        pub.getState = function() {
+            return state;
+        }
+
+        return pub; // expose externally
+    }());
+
 function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
-      botRe = /^\/cool/;
-      botCC = /^\/cc/;
-      setcc = /^\/setcc/;
-      botSave = /^\/save/;
-      botPrint = /^\/print/;
-    
-var savecc;  
-var requesttext;
+    var request = JSON.parse(this.req.chunks[0]),
+    botCommands = /^\/commands/ // Prints a list of commands
+    botCool = /^\/cool/; // Prints a random face
+    botSaveCC = /^\/setcc/i; // Saves a ClashCaller link
+    botPrintCC = /^\/cc/; // Prints the ClashCaller link
 
-
-function pls() {
-   requesttext = request.text;
-   return requesttext;
-}
-function save() {
-   return savecc.split(1);
-}
-
-
-
-if(pls.length > 6) {
-  requesttext = savecc;
-  }
-  
-if(request.text && botRe.test(request.text)) {
-    this.res.writeHead(200);
-    postMessage(cool());
-    this.res.end();
-  }
-    else if(request.text && setcc.test(request.text)) {
-    this.res.writeHead(200);
-    postMessage("set");
-    this.res.end();
+    if(request.text && botCommands.test(request.text)) {
+        this.res.writeHead(200);
+        postMessage("List of commands:"+"\n"+"/commands"+"\n"+"/setcc"+"\n"+"/cc");
+        this.res.end();
     }
- 
-   else if(request.text && botCC.test(request.text)) {
-   this.res.writeHead(200);
-   postMessage(save);
-   this.res.end();
-}
-   else if(request.text && botSave.test(request.text)) {
-       var sometext = request.text
-       othertext = "Test " + sometext.text;
-       this.res.writeHead(200);
-       postMessage("Text saved.");
-       this.res.end();
+    if(request.text && botCool.test(request.text)) {
+        this.res.writeHead(200);
+        postMessage(cool());
+        this.res.end();
+    }
+    else if(request.text && botSaveCC.test(request.text)) {
+        var someText = request.text.slice(6);
+        stateModule.changeState(someText);
+        this.res.writeHead(200);
+        postMessage("ClashCaller link saved!");
+        this.res.end();
+    }
+    else if(request.text && botPrintCC.test(request.text)) {
+        var theState = stateModule.getState();
+        this.res.writeHead(200);
+        postMessage(theState);
+        this.res.end();
    }
-   else if(request.text && botPrint.test(request.text)) {
-       this.res.writeHead(200);
-       postMessage(sometext.text);
-       this.res.end();
-   }
-   else {
-    console.log("don't care");
-    this.res.writeHead(200);
-    this.res.end();
-  }
+    else {
+        console.log("don't care");
+        this.res.writeHead(200);
+        this.res.end();
+    }
 }
 
 function postMessage(response) {
-  var botResponse, options, body, botReq;
+    var botResponse,options, body, botReq;
+    
+    botResponse = response
+    
+    options = {
+        hostname: 'api.groupme.com',
+        path: '/v3/bots/post',
+        method: 'POST'
+    };
 
-  botResponse = response
-
-  options = {
-    hostname: 'api.groupme.com',
-    path: '/v3/bots/post',
-    method: 'POST'
-  };
-
-  body = {
-    "bot_id" : botID,
-    "text" : botResponse
-  };
-
-  console.log('sending ' + botResponse + ' to ' + botID);
-
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
+    body = {
+        "bot_id" : botID,
+        "text" : botResponse
+    };
+    
+    console.log('sending ' + botResponse + ' to ' + botID);
+    
+    botReq = HTTPS.request(options, function(res) {
+        if(res.statusCode == 202) {
         //neat
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
-  });
+        } else {
+            console.log('rejecting bad status code ' + res.statusCode);
+        }
+    });
 
-  botReq.on('error', function(err) {
-    console.log('error posting message '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout posting message '  + JSON.stringify(err));
-  });
-  botReq.end(JSON.stringify(body));
+    botReq.on('error', function(err) {
+        console.log('error posting message '  + JSON.stringify(err));
+    });
+    
+    botReq.on('timeout', function(err) {
+        console.log('timeout posting message '  + JSON.stringify(err));
+    });
+    botReq.end(JSON.stringify(body));
 }
 
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 exports.respond = respond;
