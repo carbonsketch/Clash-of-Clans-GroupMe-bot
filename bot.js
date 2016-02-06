@@ -40,9 +40,8 @@ function respond() {
     botSaveWS = /^\/setws/i; // Saves a War Sheet
     botPrintWS = /^\/ws/; // Prints the War Sheet
     botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
-    botPrintObj = /^\/printobj/; // Prints contents of request object.
 
-//commands
+//commands    
     if (request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
         postMessage("List of commands: \n \
@@ -53,6 +52,7 @@ function respond() {
                     /ws - Prints the War Sheet \n \
                     /cw - Prints the ClashCaller and War Sheet");
         this.res.end();
+    }
 // cool
     if (request.text && botCool.test(request.text)) {
         this.res.writeHead(200);
@@ -90,14 +90,6 @@ function respond() {
         this.res.writeHead(200);
         postMessage("ClashCaller: " + checkUndefined(theState) + "\n" + "War Sheet: " + checkUndefined(theState2));
         this.res.end();
-
-// printobj
-    } else if (request.text && botPrintObj.test(request.text)) {
-        var someObj = JSON.stringify(request)
-        this.res.writeHead(200);
-        postMessage(someObj);
-        this.res.end();
-
     } else {
         console.log("don't care");
         this.res.writeHead(200);
