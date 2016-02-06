@@ -40,6 +40,7 @@ function respond() {
     botSaveWS = /^\/setws/i; // Saves a War Sheet
     botPrintWS = /^\/ws/; // Prints the War Sheet
     botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
+    botPrintObj = /^\/printobj/; // Prints contents of request object.
 
 //commands    
     if (request.text && botCommands.test(request.text)) {
@@ -89,6 +90,12 @@ function respond() {
         var theState2 = stateModule.getwsLink();
         this.res.writeHead(200);
         postMessage("ClashCaller: " + checkUndefined(theState) + "\n" + "War Sheet: " + checkUndefined(theState2));
+        this.res.end();
+// printobj
+    } else if (request.text && botPrintCW.test(request.text)) {
+        var someObj = JSON.stringify(request);
+        this.res.writeHead(200);
+        postMessage(someObj);
         this.res.end();
     } else {
         console.log("don't care");
