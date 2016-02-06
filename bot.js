@@ -100,7 +100,7 @@ console.log(request.name);
         postMessage(someObj);
         this.res.end();
     } else {
-        if (request.name != kuzibot) {
+        if (request.name != "kuzibot") {
             postMessage("The previous message was sent by " + request.name)
             }
         console.log("don't care");
