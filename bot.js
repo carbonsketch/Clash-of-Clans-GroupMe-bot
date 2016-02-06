@@ -42,6 +42,8 @@ function respond() {
     botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
     botPrintObj = /^\/printobj/; // Prints contents of request object.
 
+console.log(request);
+
 //commands    
     if (request.text && botCommands.test(request.text)) {
         this.res.writeHead(200);
