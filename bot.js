@@ -100,6 +100,9 @@ console.log(request.name);
         postMessage(someObj);
         this.res.end();
     } else {
+        if (request.name != kuzibot) {
+            postMessage("The previous message was sent by " + request.name)
+            }
         console.log("don't care");
         this.res.writeHead(200);
         this.res.end();
