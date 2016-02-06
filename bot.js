@@ -40,7 +40,6 @@ function respond() {
     botSaveWS = /^\/setws/i; // Saves a War Sheet
     botPrintWS = /^\/ws/; // Prints the War Sheet
     botPrintCW = /^\/cw/; // Prints the ClashCaller and WarSheet together.
-    botPrintObj = /^\/printobj/; // Prints contents of request object.
 
 console.log(request.name);
 console.log(request.attachments);
@@ -94,12 +93,6 @@ console.log(request.attachments);
         this.res.writeHead(200);
         postMessage("ClashCaller: " + checkUndefined(theState) + "\n" + "War Sheet: " + checkUndefined(theState2));
         this.res.end();
-// printobj
-    } else if (request.text && botPrintCW.test(request.text)) {
-        var someObj = JSON.stringify(request);
-        this.res.writeHead(200);
-        postMessage(someObj);
-        this.res.end();
     } else {
         console.log("don't care");
         this.res.writeHead(200);
@@ -145,47 +138,6 @@ function postMessage(response) {
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
-}
-
-
-function postMention(response) {
-    var botResponse, options, body, botReq, botUrl;
-
-    botResponse = response
-    botUrl = 
-
-    options = {
-        hostname: 'api.groupme.com',
-        path: '/v3/bots/post',
-        method: 'POST'
-    };
-
-    body = {
-        "attachments":[{
-        "type":"image",
-        "url": botUrl}],
-        "bot_id": botID,
-        "text": botResponse
-    };
-
-    console.log('sending ' + botResponse + ' to ' + botID);
-
-    botReq = HTTPS.request(options, function(res) {
-        if (res.statusCode == 202) {
-            //neat
-        } else {
-            console.log('rejecting bad status code ' + res.statusCode);
-        }
-    });
-
-    botReq.on('error', function(err) {
-        console.log('error posting message ' + JSON.stringify(err));
-    });
-
-    botReq.on('timeout', function(err) {
-        console.log('timeout posting message ' + JSON.stringify(err));
-    });
-    botReq.end(JSON.stringify(body));
 }
 
 function getRandomInt(min, max) {
