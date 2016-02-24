@@ -1,7 +1,11 @@
 {
-  "name": "Cool guy bot",
-  "description": "Basic Groupme Bot written in Node",
-  "repository": "https://github.com/petemcgrath/cool-guy-bot",
-  "logo": "http://www.tailgate365.com/wp-content/uploads/2011/06/tom-hanks-906.jpg",
-  "keywords": []
+    "name": "Clash of clans GroupMe bot",
+    "description": "GroupMe bot for the mobile game Clash of Clans",
+    "repository": "https://github.com/kuzi-moto/Clash-of-Clans-GroupMe-bot/",
+    "logo": "",
+    "keywords": [
+        "node",
+        "heroku",
+        "groupme"
+    ]
 }
