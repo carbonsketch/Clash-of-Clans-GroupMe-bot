@@ -320,12 +320,12 @@ function checkccLink(linkText) {
 
 // Saves data to .json file
 function saveFile (dataObj) {
-    jsonfile.writeFileSync('./bot_data.json', dataObj);
+    jsonfile.writeFileSync('mongodb://carbonsketch:@noname87@ds047166.mlab.com:47166/clashbot/bot_data.json', dataObj);
 }
 
 // Loads data from .json file
 function loadFile() {
-    var dataFile = './bot_data.json';
+    var dataFile = 'mongodb://carbonsketch:@noname87@ds047166.mlab.com:47166/clashbot/bot_data.json';
     var fileData = jsonfile.readFileSync(dataFile);
     return fileData;
 }
