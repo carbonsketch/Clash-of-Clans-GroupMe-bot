@@ -10,9 +10,9 @@
         "director":"",
         "cool-ascii-faces":"~1.3.x",
         "moment": "~2.10.3", 
-    
+    },
     "engines":{
-        "node":"0.10.47"
+        "node":"0.10.x"
     },
     "repository":{
         "type":"git",
